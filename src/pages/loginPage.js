@@ -5,7 +5,6 @@ export class LoginPage {
         this.loginEmailField = page.getByPlaceholder('Email');
         this.loginPasswordField = page.getByPlaceholder('Password');
     }
-
     async login(email, newpass) {
         await this.loginEmailField.click();
         await this.loginEmailField.fill(email);

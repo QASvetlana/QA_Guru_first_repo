@@ -8,7 +8,6 @@ import { GlobalfeedPage } from '../src/pages/globalfeedPage';
 
 const URL_UI = 'https://realworld.qa.guru/';
 
-
 test.describe('Авторизация новым пользователем', () => {
    test.beforeEach(async ({ page }) => {
     const mainPage = new MainPage(page);

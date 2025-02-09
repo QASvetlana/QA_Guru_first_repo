@@ -6,7 +6,6 @@
 function getUsername() {
   return faker.person.firstName();
 };
-
 const getEmail = function () {
   return faker.internet.email();
 };

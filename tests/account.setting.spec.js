@@ -50,9 +50,6 @@ test.describe('Авторизация новым пользователем', ()
     await loginPage.login(user.email, newpassword.newpass);  
     await expect(yourfeedPage.profileNameField).toBeVisible();
     await expect(yourfeedPage.profileNameField).toContainText(user.username);  
-
-   
-
 });
 
 

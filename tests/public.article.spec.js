@@ -3,7 +3,6 @@ import { faker } from '@faker-js/faker';
 import { MainPage } from '../src/pages/mainPage';
 import { RegisterPage } from '../src/pages/registerPage';
 import { YourfeedPage } from '../src/pages/yourfeedPage';
-
 const URL_UI = 'https://realworld.qa.guru/';
 
 test('Пользователь может авторизоваться используя логин и пароль', async ({ 

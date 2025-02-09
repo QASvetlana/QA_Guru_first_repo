@@ -11,7 +11,7 @@ export class YourfeedPage {
         this.globalField = page.getByRole('button', { name: 'Global Feed' });
         this.navigationDropdown = page.locator(`//div[contains(@class,"dropdown-toggle")]`);
         this.userSetting = page.getByRole('link', { name: 'Settings'});
- 
+
     }
 
 

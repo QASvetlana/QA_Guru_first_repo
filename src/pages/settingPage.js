@@ -7,7 +7,6 @@ export class SettingPage {
         this.profileDrop = page.locator('a.dropdown-item:has-text("Profile")');
         this.settingDrop = page.locator('a.dropdown-item:has-text("Settings")');
         this.logoutBotton = page.getByRole('link', { name: 'Logout' });
-
     }
 
 

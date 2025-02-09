@@ -5,7 +5,6 @@ export class GlobalfeedPage {
         this.heartCounter = page.locator(`(//span[contains(@class,"counter")])[1]`);
         
     }
-
     async clicktoheartButton() {
         await this.heartButton.click();
     }
