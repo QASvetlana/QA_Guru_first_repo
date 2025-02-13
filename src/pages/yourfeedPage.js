@@ -30,7 +30,7 @@ export class YourfeedPage {
         await this.tagField.fill(tag);
     }
 
-    async clicktoPublishBtn() {
+    async publishArticle() {
         await this.publishButton.click();
     }
 
@@ -38,7 +38,7 @@ export class YourfeedPage {
         await this.globalField.click();
     }
 
-    async clicktoNavigationDropdown() {
+    async gotoNavigationDropdown() {
         await this.navigationDropdown.click();
     }
 

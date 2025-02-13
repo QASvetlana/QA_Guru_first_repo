@@ -15,15 +15,15 @@ export class SettingPage {
         await this.newPasswordField.fill(newpass);
     }
 
-    async clickUpdateSettingBotton() {
+    async updateUserSetting() {
         await this.updateSettingBotton.click();
     }
 
-    async clicktoNavigationDrop() {
+    async gotoNavigationDrop() {
         await this.navigationDrop.click();
     }
  
-    async clickLogoutBotton() {
+    async logout() {
         await this.logoutBotton.click();
     }
 

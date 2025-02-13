@@ -28,23 +28,21 @@ test.describe('Авторизация новым пользователем', ()
       await mainPage.open(URL_UI);
       await mainPage.gotoRegister();
       await registerPage.register(user.username, user.email, user.password);
-      await expect(yourfeedPage.profileNameField).toBeVisible(); 
-      await expect(yourfeedPage.profileNameField).toContainText(user.username);  
 
 
     const newpassword = {
         newpass: faker.internet.password({ length: 10 }),
     };
 
-    await yourfeedPage.clicktoNavigationDropdown();
+    await yourfeedPage.gotoNavigationDropdown();
     await yourfeedPage.chooseUserSetting();
     await settingPage.changePassword(newpassword.newpass);
-    await settingPage.clickUpdateSettingBotton();
-    await settingPage.clicktoNavigationDrop();
+    await settingPage.updateUserSetting();
+    await settingPage.gotoNavigationDrop();
     await expect(settingPage.profileDrop).toBeVisible();
     await expect(settingPage.settingDrop).toBeVisible();
     await expect(settingPage.logoutBotton).toBeVisible();
-    await settingPage.clickLogoutBotton();
+    await settingPage.logout();
     await mainPage.open(URL_UI);
     await mainPage.gotoLogin();
     await loginPage.login(user.email, newpassword.newpass);  

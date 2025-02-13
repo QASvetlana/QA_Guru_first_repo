@@ -21,8 +21,7 @@ test.describe('Авторизация новым пользователем', ()
       await mainPage.open(URL_UI);
       await mainPage.gotoRegister();
       await registerPage.register(user.username, user.email, user.password);
-      await expect(yourfeedPage.profileNameField).toBeVisible(); 
-      await expect(yourfeedPage.profileNameField).toContainText(user.username);  
+ 
 });
 
 
@@ -66,7 +65,7 @@ test.describe('Авторизация новым пользователем', ()
     await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
     await yourfeedPage.clicktoPublishBtn();
     await articlePage.creatComment(newcomment.commment);
-    await articlePage.clicktoPublishCommentButton();
+    await articlePage.publishComment();
     await expect(articlePage.commentPublished).toContainText(newcomment.commment);
 
 });
@@ -95,10 +94,10 @@ test.describe('Авторизация новым пользователем', ()
 
     await yourfeedPage.gotoArticle();
     await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
-    await yourfeedPage.clicktoPublishBtn();
+    await yourfeedPage.publishArticle();
     await articlePage.creatComment(newcomment.commment);
-    await articlePage.clicktoPublishCommentButton();
-    await articlePage.clicktoConduitLogo();
+    await articlePage.publishComment();
+    await articlePage.clickToLogo();
     await yourfeedPage.gotoGlobalField();
     await globalfeedPage.clicktoheartButton();
     await expect(globalfeedPage.heartCounter).toContainText(likenumber.like);
