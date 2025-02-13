@@ -9,7 +9,6 @@ export class SettingPage {
         this.logoutBotton = page.getByRole('link', { name: 'Logout' });
     }
 
-
     async changePassword(newpass) {
         await this.newPasswordField.click();
         await this.newPasswordField.fill(newpass);

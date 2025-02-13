@@ -7,6 +7,7 @@ export class ArticlePage {
         this.conduitLogo = page.getByRole('navigation').getByRole('link', { name: 'conduit' });
         this.commentPublished = page.locator(`(//div[contains(@class,"card-block")])[2]`);
 }
+
 async creatComment(comment) {
     await this.commentForm.click();
     await this.commentForm.fill(comment);

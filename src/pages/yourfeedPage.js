@@ -14,7 +14,6 @@ export class YourfeedPage {
 
     }
 
-
     async gotoArticle() {
         await this.newArticleButton.click();
     }

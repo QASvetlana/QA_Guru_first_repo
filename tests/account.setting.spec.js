@@ -50,5 +50,4 @@ test.describe('Авторизация новым пользователем', ()
     await expect(yourfeedPage.profileNameField).toContainText(user.username);  
 });
 
-
 });
