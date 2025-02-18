@@ -39,7 +39,7 @@ test.describe('Авторизация новым пользователем', ()
 
     await yourfeedPage.gotoArticle();
     await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
-    await yourfeedPage.clicktoPublishBtn();
+    await yourfeedPage.publishArticle();
     await expect(articlePage.banner).toContainText(newarticle.articletitle);
 
 });
@@ -63,7 +63,7 @@ test.describe('Авторизация новым пользователем', ()
 
     await yourfeedPage.gotoArticle();
     await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
-    await yourfeedPage.clicktoPublishBtn();
+    await yourfeedPage.publishArticle();
     await articlePage.creatComment(newcomment.commment);
     await articlePage.publishComment();
     await expect(articlePage.commentPublished).toContainText(newcomment.commment);
