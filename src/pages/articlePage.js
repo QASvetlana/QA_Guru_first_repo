@@ -13,11 +13,11 @@ async creatComment(comment) {
     await this.commentForm.fill(comment);
 }
 
-async clicktoPublishCommentButton() {
+async publishComment() {
     await this.publishCommentButton.click();
 }
 
-async clicktoConduitLogo() {
+async clickToLogo() {
     await this.conduitLogo.click();
 }
 }

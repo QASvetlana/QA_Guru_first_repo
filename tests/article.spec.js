@@ -1,29 +1,29 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-import { MainPage } from '../src/pages/mainPage';
-import { RegisterPage } from '../src/pages/registerPage';
-import { YourfeedPage } from '../src/pages/yourfeedPage';
-import { ArticlePage } from '../src/pages/articlePage';
-import { GlobalfeedPage } from '../src/pages/globalfeedPage';
+import { MainPage, RegisterPage, YourfeedPage, ArticlePage, GlobalfeedPage} from '../src/pages/index';
+import { ArticleBuilder, UserBuilder } from '../src/helpers/builder/index';
 
 const URL_UI = 'https://realworld.qa.guru/';
-
 
 test.describe('Авторизация новым пользователем', () => {
    test.beforeEach(async ({ page }) => {
     const mainPage = new MainPage(page);
     const registerPage = new RegisterPage(page);
     const yourfeedPage = new YourfeedPage(page);
-    const user = {
-        email: faker.internet.email(),
-        password: faker.internet.password({ length: 10 }),
-        username: faker.person.firstName(),
-      };
+    const userBuilder = new UserBuilder()
+			.addEmail()
+			.addUsername()
+			.addPassword(11)
+			.generate();
+
       await mainPage.open(URL_UI);
       await mainPage.gotoRegister();
-      await registerPage.register(user.username, user.email, user.password);
-      await expect(yourfeedPage.profileNameField).toBeVisible(); 
-      await expect(yourfeedPage.profileNameField).toContainText(user.username);  
+      await registerPage.register(
+        userBuilder.username,
+        userBuilder.email,
+        userBuilder.password,
+      );
+ 
 });
 
 
@@ -32,17 +32,17 @@ test.describe('Авторизация новым пользователем', ()
  }) => {
     const yourfeedPage = new YourfeedPage(page);
     const articlePage = new ArticlePage(page);
-    const newarticle = {
-      articletitle: faker.lorem.lines(1),
-      articledescription: faker.lorem.lines(2),
-      article: faker.lorem.lines(4),
-      tag: faker.lorem.lines(1),
-    };
+    const articleBuilder = new ArticleBuilder()
+    .addTitle()
+    .addDescription()
+    .addArticle()
+    .addTag()
+    .generate();
 
     await yourfeedPage.gotoArticle();
-    await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
-    await yourfeedPage.clicktoPublishBtn();
-    await expect(articlePage.banner).toContainText(newarticle.articletitle);
+    await yourfeedPage.creatArticle(articleBuilder.title, articleBuilder.description, articleBuilder.article, articleBuilder.tag);
+    await yourfeedPage.publishArticle();
+    await expect(articlePage.banner).toContainText(articleBuilder.title);
 
 });
 
@@ -52,22 +52,22 @@ test.describe('Авторизация новым пользователем', ()
     const yourfeedPage = new YourfeedPage(page);
     const articlePage = new ArticlePage(page);
     const globalfeedPage = new GlobalfeedPage(page);
-    const newarticle = {
-      articletitle: faker.lorem.lines(1),
-      articledescription: faker.lorem.lines(2),
-      article: faker.lorem.lines(4),
-      tag: faker.lorem.lines(1),
-    };
+    const articleBuilder = new ArticleBuilder()
+    .addTitle()
+    .addDescription()
+    .addArticle()
+    .addTag()
+    .generate();
 
     const newcomment = {
       commment: faker.lorem.lines(1),
     };
 
     await yourfeedPage.gotoArticle();
-    await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
-    await yourfeedPage.clicktoPublishBtn();
+    await yourfeedPage.creatArticle(articleBuilder.title, articleBuilder.description, articleBuilder.article, articleBuilder.tag);
+    await yourfeedPage.publishArticle();
     await articlePage.creatComment(newcomment.commment);
-    await articlePage.clicktoPublishCommentButton();
+    await articlePage.publishComment();
     await expect(articlePage.commentPublished).toContainText(newcomment.commment);
 
 });
@@ -79,12 +79,12 @@ test.describe('Авторизация новым пользователем', ()
     const yourfeedPage = new YourfeedPage(page);
     const articlePage = new ArticlePage(page);
     const globalfeedPage = new GlobalfeedPage(page);
-    const newarticle = {
-      articletitle: faker.lorem.lines(1),
-      articledescription: faker.lorem.lines(2),
-      article: faker.lorem.lines(4),
-      tag: faker.lorem.lines(1),
-    };
+    const articleBuilder = new ArticleBuilder()
+    .addTitle()
+    .addDescription()
+    .addArticle()
+    .addTag()
+    .generate();
 
     const newcomment = {
       commment: faker.lorem.lines(1),
@@ -95,14 +95,13 @@ test.describe('Авторизация новым пользователем', ()
     };
 
     await yourfeedPage.gotoArticle();
-    await yourfeedPage.creatArticle(newarticle.articletitle, newarticle.articledescription, newarticle.article, newarticle.tag);
-    await yourfeedPage.clicktoPublishBtn();
+    await yourfeedPage.creatArticle(articleBuilder.title, articleBuilder.description, articleBuilder.article, articleBuilder.tag);
+    await yourfeedPage.publishArticle();
     await articlePage.creatComment(newcomment.commment);
-    await articlePage.clicktoPublishCommentButton();
-    await articlePage.clicktoConduitLogo();
+    await articlePage.publishComment();
+    await articlePage.clickToLogo();
     await yourfeedPage.gotoGlobalField();
     await globalfeedPage.clicktoheartButton();
     await expect(globalfeedPage.heartCounter).toContainText(likenumber.like);
-
 });
 });

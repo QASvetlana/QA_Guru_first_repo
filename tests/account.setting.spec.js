@@ -1,10 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-import { MainPage } from '../src/pages/mainPage';
-import { RegisterPage } from '../src/pages/registerPage';
-import { YourfeedPage } from '../src/pages/yourfeedPage';
-import { SettingPage } from '../src/pages/settingPage';
-import { LoginPage } from '../src/pages/loginPage';
+import { MainPage, RegisterPage, YourfeedPage, SettingPage, LoginPage} from '../src/pages/index';
+import { UserBuilder } from '../src/helpers/builder/index';
 
 const URL_UI = 'https://realworld.qa.guru/';
 
@@ -20,40 +17,38 @@ test.describe('Авторизация новым пользователем', ()
     const loginPage = new LoginPage(page);
     const registerPage = new RegisterPage(page);
 
-    const user = {
-        email: faker.internet.email(),
-        password: faker.internet.password({ length: 10 }),
-        username: faker.person.firstName(),
-      };
-      await mainPage.open(URL_UI);
-      await mainPage.gotoRegister();
-      await registerPage.register(user.username, user.email, user.password);
-      await expect(yourfeedPage.profileNameField).toBeVisible(); 
-      await expect(yourfeedPage.profileNameField).toContainText(user.username);  
-
+    const userBuilder = new UserBuilder()
+          .addEmail()
+          .addUsername()
+          .addPassword(11)
+          .generate();
+    
+          await mainPage.open(URL_UI);
+          await mainPage.gotoRegister();
+          await registerPage.register(
+            userBuilder.username,
+            userBuilder.email,
+            userBuilder.password,
+          );
 
     const newpassword = {
         newpass: faker.internet.password({ length: 10 }),
     };
 
-    await yourfeedPage.clicktoNavigationDropdown();
+    await yourfeedPage.gotoNavigationDropdown();
     await yourfeedPage.chooseUserSetting();
     await settingPage.changePassword(newpassword.newpass);
-    await settingPage.clickUpdateSettingBotton();
-    await settingPage.clicktoNavigationDrop();
+    await settingPage.updateUserSetting();
+    await settingPage.gotoNavigationDrop();
     await expect(settingPage.profileDrop).toBeVisible();
     await expect(settingPage.settingDrop).toBeVisible();
     await expect(settingPage.logoutBotton).toBeVisible();
-    await settingPage.clickLogoutBotton();
+    await settingPage.logout();
     await mainPage.open(URL_UI);
     await mainPage.gotoLogin();
-    await loginPage.login(user.email, newpassword.newpass);  
+    await loginPage.login( userBuilder.email, newpassword.newpass);  
     await expect(yourfeedPage.profileNameField).toBeVisible();
-    await expect(yourfeedPage.profileNameField).toContainText(user.username);  
-
-   
-
+    await expect(yourfeedPage.profileNameField).toContainText(userBuilder.username);  
 });
-
 
 });

@@ -7,24 +7,22 @@ export class SettingPage {
         this.profileDrop = page.locator('a.dropdown-item:has-text("Profile")');
         this.settingDrop = page.locator('a.dropdown-item:has-text("Settings")');
         this.logoutBotton = page.getByRole('link', { name: 'Logout' });
-
     }
-
 
     async changePassword(newpass) {
         await this.newPasswordField.click();
         await this.newPasswordField.fill(newpass);
     }
 
-    async clickUpdateSettingBotton() {
+    async updateUserSetting() {
         await this.updateSettingBotton.click();
     }
 
-    async clicktoNavigationDrop() {
+    async gotoNavigationDrop() {
         await this.navigationDrop.click();
     }
  
-    async clickLogoutBotton() {
+    async logout() {
         await this.logoutBotton.click();
     }
 

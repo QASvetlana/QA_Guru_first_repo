@@ -11,9 +11,8 @@ export class YourfeedPage {
         this.globalField = page.getByRole('button', { name: 'Global Feed' });
         this.navigationDropdown = page.locator(`//div[contains(@class,"dropdown-toggle")]`);
         this.userSetting = page.getByRole('link', { name: 'Settings'});
- 
-    }
 
+    }
 
     async gotoArticle() {
         await this.newArticleButton.click();
@@ -30,7 +29,7 @@ export class YourfeedPage {
         await this.tagField.fill(tag);
     }
 
-    async clicktoPublishBtn() {
+    async publishArticle() {
         await this.publishButton.click();
     }
 
@@ -38,7 +37,7 @@ export class YourfeedPage {
         await this.globalField.click();
     }
 
-    async clicktoNavigationDropdown() {
+    async gotoNavigationDropdown() {
         await this.navigationDropdown.click();
     }
 

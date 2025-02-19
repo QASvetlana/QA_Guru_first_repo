@@ -6,7 +6,7 @@ export class RegisterPage {
         this.passwordField = page.getByPlaceholder('Password');
         this.usernameField = page.getByPlaceholder('Your Name');
     }
-
+    
     async register(username, email, password) {
         await this.usernameField.click();
         await this.usernameField.fill(username);
